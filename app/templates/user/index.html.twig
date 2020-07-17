@@ -4,21 +4,26 @@
 
 {% block title %}User list{% endblock %}
 {% block head %} 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 {% block body %}
+   <link href="{{ asset('css/crm.css') }}" type="text/css" rel="stylesheet">
 
 
     <style>
+    
+   
         h1{
             text-align: center;
         }
+       
     </style>
         {% include ('flash-messages/flash-messages.html.twig') %}
     <div class="container">
-        <div Class="row justify-content-center" style = "margin-top : 20px;">
-            <h1>Liste des utilisateurs du site</h1>
-            <table Class="table table-bordered" style="margin-top: 20px;">
+            <h1 style = "margin-top: 20px;">Liste des utilisateurs du site</h1> 
+            <br>
+
+            <a style = "margin-top : 20px;" href="{{ path('user-create') }}" class = "btn btn-success"> Ajouter un nouvel utilisateur </a>
+            <table class="table table-striped table-bordered table-hover" style="margin-top: 20px;">
                 <thead class="thead-dark" style="text-align: center;">
                 <tr>
                     <th> Prénom </th>
@@ -31,6 +36,7 @@
                 </tr>
                 </thead>
                 {# légèrement différent de php avec foreach userList as user #}
+                <tbody>
                 {% for user in user_list %}
                     <tr style = "text-align: center;">
                         <td>{{ user.firstName }} </td>
@@ -39,13 +45,13 @@
                         <td>{{ user.tag }}</td>
                         <td>0{{ user.phoneNumber }}</td>
                         <td> 
-                            <a href="{{ path('user_edit', {'id': user.id}) }}" class = "btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
-                            <a href="{{ path('user_delete', {'id': user.id}) }}" class = "btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                            <a title="Modifier cet utilisateur" href="{{ path('user_edit', {'id': user.id}) }}" class = "btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
+                            <a title="Supprimer cet utilisateur" href="{{ path('user_delete', {'id': user.id}) }}" class = "btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a> 
                         </td>
                     </tr>
                 {% endfor %}
+                </tbody>
             </table>
-                <a href="{{ path('user-create') }}"> Créer un nouvel utilisateur </a>
         </div>
     </div>
 {% endblock %}

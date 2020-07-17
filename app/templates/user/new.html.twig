@@ -4,12 +4,14 @@
 
 {% block head %} {% endblock %}
 
+
 {% block body %}
+
+   <link href="{{ asset('css/crm.css') }}" type="text/css" rel="stylesheet">
+
     <main role="main" class="container">
 
-        <div class="starter-template" style="margin-top:100px; text-align:center">
-            <h1>I N S C R I P T I O N</h1>
-        </div>
+            <h1 style = "margin-top: 15px;">Ajouter un utilisateur</h1><br><br>
         {{ form(form) }}
 
     </main>
