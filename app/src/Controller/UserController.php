@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,5 +67,59 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/delete-bis/{id}", name="user_delete_bis")
+     */
+    public function deleteBis(string $id, EntityManagerInterface $entityManager)
+    {
+        $user = $this->userRepository->find($id);
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('danger', "User has been deleted");
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="user_delete")
+     * @ParamConverter("user", options={"mapping"={"id"="id"}})
+     */
+    public function delete(user $user, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('danger', "User has been deleted");
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("/editUser/{id}", name="user_edit")
+     * @ParamConverter("user", options={"mapping"={"id"="id"}})
+     */
+    public function update(Request $request, user $user, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $form = $this->createForm(userType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $this->addFlash('warning', "User has been successfully changed");
+
+            return $this->redirectToRoute('user_list');
+        }
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
 
 }

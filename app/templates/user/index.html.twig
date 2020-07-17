@@ -12,7 +12,7 @@
         .example-wrapper ul li a{padding: 10px; margin: 3px; text-decoration: none; display: inline;}
         .example-wrapper a {text-decoration: none;}
     </style>
-
+        {% include ('flash-messages/flash-messages.html.twig') %}
     <div class="container">
         <div Class="row justify-content-center">
             <h1>Liste des utilisateurs du site</h1>
@@ -35,12 +35,14 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.tag }}</td>
                         <td>{{ user.phoneNumber }}</td>
+                        <td>
+                                <a class="btn btn-info" href="{{ path('user_edit', {'id': user.id}) }}" style="">Edit</a>
+                                <a class="btn btn-danger" href="{{ path('user_delete', {'id': user.id}) }}" style="">Delete</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
-            {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('user-create') }}"> Créer un nouvel utilisateur </a>
-            {% endif %}
         </div>
     </div>
 {% endblock %}
