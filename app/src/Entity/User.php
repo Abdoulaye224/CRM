@@ -6,6 +6,8 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -20,7 +22,8 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(name="email", type="string", unique=true)
+     * @Assert\Email
      */
     private $email;
 
@@ -31,16 +34,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom ne peut pas être vide")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de famille ne peut pas être vide")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de famille ne peut pas être vide")
      */
     private $tag;
 
