@@ -7,82 +7,54 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase {
 
+    public function testUser(){
+        $user = new User();
+        $user->setFirstName('');
+        $user->setLastName('Daoud');
+        $user->setEmail('ryan@live.fr'); 
+        $user->setPassword("ryan");
+        $user->setTag("commercial");
+        $user->setPhoneNumber(NULL);
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->user = new User();
+        $this->assertNotEmpty($user->getFirstName());
+        $this->assertNotEmpty($user->getLastName());
+        $this->assertNotEmpty($user->getPassword());
+        $this->assertNotEmpty($user->getTag());
+
+        $this->assertEquals('',$user->getFirstName());
+        $this->assertEquals('Daoud',$user->getLastName());
+        $this->assertEquals('ryan@live.fr',$user->getEmail());
+        $this->assertEquals('ryan',$user->getPassword());
+        $this->assertEquals('commercial',$user->getTag());
+        $this->assertEquals(NULL,$user->GetPhoneNumber());
+
+        $this->assertRegExp('/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/',$user->getEmail());
+        $this->assertEquals(true,$this->isValid($user));
+
+
     }
 
-    public function testGetFirstName(): void
-    {
-        $user = new User(); 
-        $value = 'firstName';
+    public function isValid(User $user){
 
-        $response = $this->user->setFirstName($value);
+        if( empty($user->getFirstName()) || count_chars($user->getFirstName()) < 0 ){
+          return "firstName is not valid";
+        }
+        if( empty($user->getLastName()) || count_chars($user->getLastName()) < 0 ){
+          return "lastName is not valid ";
+        }
+        if( empty($user->getEmail()) || !filter_var($user->getEmail(),FILTER_VALIDATE_EMAIL) ){
+          {
+            return "email is not valid";
+          }
+        }
+        if( empty($user->getPassword()) || count_chars($user->getPassword()) < 0 ){
+            return "password is not valid ";
+        }
+        if( empty($user->getTag()) || count_chars($user->getTag()) < 0 ){
+            return "tag is not valid ";
+        }
 
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals($value, $this->user->getFirstName());
-    }
+        return true;
+      }
 
-    public function testGetLastName(): void
-    {
-        $value = 'lastName';
-
-        $response = $this->user->setLastName($value);
-
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals($value, $this->user->getLastName());
-    }
-
-    public function testGetEmail(): void
-    {
-        $value = 'test@gmail.com';
-
-        $response = $this->user->setEmail($value);
-
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals($value, $this->user->getEmail());
-    }
-
-    public function testGetPassword(): void
-    {
-        $value = 'password';
-
-        $response = $this->user->setPassword($value);
-
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals($value, $this->user->getPassword());
-    }
-
-    public function testGetTag(): void
-    {
-        $value = 'tag';
-
-        $response = $this->user->setTag($value);
-
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals($value, $this->user->getTag());
-    }
-
-    public function testGetPhoneNumber(): void
-    {
-        $value = 0606060606;
-
-        $response = $this->user->setPhoneNumber($value);
-
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals($value, $this->user->getPhoneNumber());
-    }
-/*
-    public function testGetRoles(): void
-    {
-        $value = ['ROLE_ADMIN'];
-
-        $response = $this->user->setRoles($value);
-
-        self::assertInstanceOf(User::class, $response);
-        self::assertEquals('ROLE_USER', $this->user->getRoles());
-        self::assertContains('ROLE_ADMIN', $this->user->getRoles());
-    }*/
 }
