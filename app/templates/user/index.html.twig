@@ -37,17 +37,10 @@
                         <td>{{  user.lastName|upper }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.tag }}</td>
-<<<<<<< HEAD
                         <td>0{{ user.phoneNumber }}</td>
                         <td> 
-                            <a href="#" class = "btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
-                            <a href="#" class = "btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a> 
-=======
-                        <td>{{ user.phoneNumber }}</td>
-                        <td>
-                                <a class="btn btn-info" href="{{ path('user_edit', {'id': user.id}) }}" style="">Edit</a>
-                                <a class="btn btn-danger" href="{{ path('user_delete', {'id': user.id}) }}" style="">Delete</a>
->>>>>>> e518fd6392c6da008612b3d395490637622cd2a0
+                            <a href="{{ path('user_edit', {'id': user.id}) }}" class = "btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
+                            <a href="{{ path('user_delete', {'id': user.id}) }}" class = "btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a> 
                         </td>
                     </tr>
                 {% endfor %}
