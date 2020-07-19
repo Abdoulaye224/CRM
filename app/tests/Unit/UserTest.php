@@ -29,7 +29,7 @@ class UserTest extends TestCase {
         $this->assertEquals("09.98.89.92.92",$user->GetPhoneNumber());
 
         $this->assertRegExp('/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/',$user->getEmail());
-      //  $this->assertRegExp('/^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/', $user->getPhoneNumber());
+        $this->assertRegExp('/^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/', $user->getPhoneNumber());
 
         $this->assertEquals(true,$this->isValid($user));
 
