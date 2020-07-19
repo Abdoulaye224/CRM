@@ -28,7 +28,7 @@ class UserType extends AbstractType
             ->add('firstName', TextType::class, ['label' => "Prénom",   'attr' => ['placeholder' => 'Entrez votre prénom']])
             ->add('lastName', TextType::class, ['label' => "Nom", 'attr' => ['placeholder' => 'Entrez votre nom']])
             ->add('tag', TextType::class, ['label'=> "Tag", 'attr' => ['placeholder' => 'Entrez votre nom']])
-            ->add('phoneNumber')
+            ->add('phoneNumber', NumberType::class, ['label'=> "Numéro de téléphone", 'attr' => ['placeholder' => 'Entrez votre numéro de téléphone']])
             ->add('save', SubmitType::class, ['attr' => ['class' => "btn btn-lg btn-primary"]])
         ;
     }
