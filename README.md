@@ -30,7 +30,11 @@ docker-compose up --build
 #Tapez cette commande ensuite pour créer toutes les tables nécéssaires au bon fonctionnement de l'application dans la base mysql
 docker-compose exec web php bin/console doctrine:migration:migrate
 ```
-Pour les plus malins qui veulent économiser leur energie, vous pouvez taper cette commande qui vous créera des fausses données, afin de ne pas avoir à créer des données à la main pour faire des Tests.
+
+
+#### Data Fixtures 😉
+
+Pour les plus malins, vous pouvez taper cette commande qui vous créera des fausses données, afin de ne pas avoir à créer des données à la main pour faire des Tests.
 ```
 docker-compose exec web php bin/console doctrine:fixtures:load
 ```
@@ -39,9 +43,10 @@ L'application est lancée sur le port ```8010``` ou 192....8000 pour les utilisa
 #### Accès base de données
 placez vous bien dans le dossier /app et faites
 ```
- $ winpty docker-compose exec db mysql -u crm -pcrm
+  docker-compose exec db mysql -u crm -pcrm
 ```
-Attention ! le "-p" est bien collé au mot de passe.
+Attention ! l'option "winpty" pourrait être nécéssaire pour les utilisateurs windows --> "winpty docker-compose exec db mysql -u crm -pcrm
+"
 ## Soutien
 
 Veuillez 
